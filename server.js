@@ -8,6 +8,7 @@ var User = require('./server/models/user_model')
 
 //mongo related
 var mongoClient = require('mongodb').MongoClient;
+// check https://mlab.com/signup/ for online hosting ?
 var mongoUrl = "mongodb://localhost:27017/dejamobileDB";
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl, { useNewUrlParser: true });

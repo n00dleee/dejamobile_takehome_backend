@@ -9,6 +9,9 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {
     var content = req.body;
+
+    userManagement.checkUserCreationRequest(content);
+
     userManagement.createUser(content).then((result) => {
         res.status(201);
         res.send("User successfully created");
@@ -24,4 +27,3 @@ router.get('/:userId', function (req, res) {
 })
 
 module.exports = router;
-

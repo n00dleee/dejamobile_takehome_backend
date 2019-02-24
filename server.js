@@ -4,7 +4,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 
 //models
-var User = require('./server/models/user_model')
+var User = require('./server/models/user_model');
+var digitizedCard = require('./server/models/digitizedCard_model');
 
 //mongo related
 var mongoClient = require('mongodb').MongoClient;
@@ -26,7 +27,9 @@ app.use(bodyParser.json());
 var router = express.Router();              // get an instance of the express Router
 //our api routes
 var usersRoutes = require('./server/users/users_routes')
+var digitizedCardsRoutes = require('./server/digitizedCards/digitizedCards_routes')
 app.use('/users', usersRoutes);
+app.use('/digitizedCards', digitizedCardsRoutes);
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function (req, res) {

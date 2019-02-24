@@ -1,12 +1,12 @@
 var mongoose = require("mongoose");
 var request = require("request");
-var User = mongoose.model("User");
+var DigitizedCard = mongoose.model("DigitizedCard");
 
 module.exports = {
-    createUser: function (user) {
+    createDigitizedCard: function (user) {
         return new Promise(function (resolve, reject) {
-            var newUser = new User(user);
-            newUser.save(function (err, result) {
+            var newDigitizedCard = new DigitizedCard(user);
+            newDigitizedCard.save(function (err, result) {
                 if (result) {
                     resolve(result)
                 } else if (err) {
@@ -16,9 +16,9 @@ module.exports = {
         })
     },
 
-    checkUserCreationRequest: function (user) {
+    /*checkUserCreationRequest: function (user) {
         return new Promise(function (resolve, reject) {
-            //TODO
+            
         })
-    }
+    }*/
 }

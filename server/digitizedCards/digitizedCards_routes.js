@@ -13,6 +13,8 @@ router.post('/', function (req, res) {
         res.status(201);
         res.send("Digitized card successfully created");
     }).catch((err) => {
+        res.status(412);
+        res.send("Error while creating digitized card");
         console.log('Error while creating digitized card : ' + err.body)
     })
 })

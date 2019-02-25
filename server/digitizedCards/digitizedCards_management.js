@@ -15,10 +15,4 @@ module.exports = {
             })
         })
     },
-
-    /*checkUserCreationRequest: function (user) {
-        return new Promise(function (resolve, reject) {
-            
-        })
-    }*/
 }

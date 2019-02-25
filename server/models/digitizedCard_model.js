@@ -3,21 +3,21 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var digitizedCardSchema = new Schema({
-    cardNumber: {
+    ownerName: {
         type: String,
-        required: 'Please specify a card number'
+        default: 'Please specify a card holder name'
     },
     expirationDate: {
         type: String,
-        required: 'Please specify an expiration date'
+        default: 'Please specify an expiration date'
     },
-    cardHolderName: {
+    cardNumber: {
         type: String,
-        required: 'Please specify a card holder name'
+        default: 'Please specify a card number'
     },
     crypto: {
         type: String,
-        require: 'Please specify a crypto'
+        default: 'Please specify a crypto'
     }
 })
 

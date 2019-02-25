@@ -15,6 +15,7 @@ router.post('/', function (req, res) {
     userManagement.createUser(content).then((result) => {
         res.status(201);
         res.send("User successfully created");
+        console.log("User created : " + content)
     }).catch((err) => {
         console.log('Error while creating user : ' + err.body)
     })

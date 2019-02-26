@@ -11,6 +11,8 @@ router.post('/', function (req, res) {
     var content = req.body;
     console.log("About to create a new digitized card...");
     digitizedCardsManagement.createDigitizedCard(content).then((result) => {
+        console.log("Digitized card successfully provided by corresponding card issuing company")
+        console.log("Sending back digitized card to API's caller")
         res.status(201);
         res.send(result);
     }).catch((err) => {

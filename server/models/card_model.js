@@ -34,8 +34,8 @@ var cardNumberFormat = {
         console.log("original card number : " + cardNum);
         this.cardNumber = cardNum;
         this.majorIndustryIdentifier = cardNum.substring(0, 1);
-        this.issuerIdentificationNumber = cardNum.substring(0, 5);
-        this.accountNumber = cardNum.substring(6, cardNum.length - 2);
+        this.issuerIdentificationNumber = cardNum.substring(0, 6);
+        this.accountNumber = cardNum.substring(7, cardNum.length - 2);
         this.checksum = cardNum.substring(cardNum.length - 2, cardNum.length - 1);
         console.log("Card number succesffully parsed !");
     },

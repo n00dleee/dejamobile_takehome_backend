@@ -36,7 +36,7 @@ var router = express.Router();              // get an instance of the express Ro
 var usersRoutes = require('./server/users/users_routes');
 var digitizedCardsRoutes = require('./server/digitizedCards/digitizedCards_routes');
 var loginRoutes = require('./server/login/login_routes');
-app.use('/users', LoginManagement.checkToken, usersRoutes);
+app.use('/users', usersRoutes);
 app.use('/digitizedCards', LoginManagement.checkToken, digitizedCardsRoutes);
 app.use('/login', loginRoutes);
 

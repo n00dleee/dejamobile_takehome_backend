@@ -1,37 +1,46 @@
-var Card = mongoose.model("Card");
 var DetailedCardNumber = require('./../../models/card_model')
-var DigitizedCardNumber = require( './../../models/digitizedCard_model');
-var VisaMockup = require('./')
+var DigitizedCard = require('./../../models/digitizedCard_model')
+
 module.exports = {
-    getDigitizedCard: function (c) {
+    getDigitizedCard: function (card) {
+        console.log("VISA : processing card info in order to generate a digitized card...")
         return new Promise(function (resolve, reject) {
-            var card = new Card(card);
+            console.log("VISA : processing...")
             var detailedCardInfo = generateDigitizedCardFromActualCard(card);
-            DigitizedCardNumber.cardNumber = detailedCardInfo.getFullCardNumber();
-            DigitizedCardNumber.ownerName = card.ownerName;
-            DigitizedCardNumber.expirationDate = card.expirationDate;
-            DigitizedCardNumber.crypto = getRandomDigit() + getRandomDigit() + getRandomDigit();
-            return DigitizedCardNumber;
+            console.log("VISA : generated digitized card info");
+            console.log(detailedCardInfo);
+            console.log("VISA : processing... ...")
+            var cardNumber = detailedCardInfo.getFullCardNumber();
+            console.log("VISA : processing... ... ...")
+            var ownerName = card.ownerName;
+            console.log("VISA : processing... ... ... ...")
+            var expirationDate = card.expirationDate;
+            console.log("VISA : processing... ... ... ... ...")
+            var crypto = getRandomDigit() + getRandomDigit() + getRandomDigit();
+
+            DigitizedCard.buildDigitizedCard(ownerName, cardNumber, expirationDate, crypto);
+            console.log("VISA : digitized card generated :");
+            console.log(DigitizedCard);
+            resolve(DigitizedCard);
         });
     },
 }
 
-function generateDigitizedCardFromActualCard (card){
-    console.log('1');
+function generateDigitizedCardFromActualCard(card) {
     DetailedCardNumber.parseCardNumber(card.cardNumber);
-    console.log('2');
-    console.log("Details card info");
+    console.log("VISA : Detailed card info parsed");
     console.log(DetailedCardNumber);
 
     //replace account number & crypto with random digits
-    var temp ="";
+    var temp = "";
     do {
-    temp += getRandomDigit();
+        temp += getRandomDigit();
     } while (temp.length < 10);
     DetailedCardNumber.accountNumber = temp;
+    console.log("VISA : account number generated : " + DetailedCardNumber.accountNumber);
     return DetailedCardNumber;
 }
 
-function getRandomDigit(){
-    return Math.floor(Math.random() * Math.Floor(9)).toString();
+function getRandomDigit() {
+    return Math.floor(Math.random() * Math.floor(9)).toString();
 }

@@ -22,3 +22,17 @@ var digitizedCardSchema = new Schema({
 })
 
 module.exports = mongoose.model('DigitizedCard', digitizedCardSchema);
+
+var digitizedCard = {
+    ownerName: String,
+    expirationDate: String,
+    cardNumber: String,
+    crypto: String,
+    buildDigitizedCard: function (ownerName, cardNumber, expirationDate, crypto) {
+        this.ownerName = ownerName;
+        this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
+        this.crypto = crypto;
+    }
+}
+module.exports = digitizedCard;

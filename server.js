@@ -6,6 +6,7 @@ var mongoose = require('mongoose')
 //models
 var User = require('./server/models/user_model');
 var digitizedCard = require('./server/models/digitizedCard_model');
+var card = require('./server/models/card_model');
 
 //mongo related
 var mongoClient = require('mongodb').MongoClient;
@@ -35,17 +36,11 @@ app.use('/login', loginRoutes);
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function (req, res) {
-    res.json({ message: 'Welcome to my API' });
+    res.json({ message: 'Welcome to dejamobile API !' });
 });
-
-// more routes for our API will happen here
-
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
-//app.use('/api', router);
 
 // SERVER RELATED
 // =============================================================================
 var port = process.env.PORT || 8080;
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Dejamobile backend running on port ' + port);

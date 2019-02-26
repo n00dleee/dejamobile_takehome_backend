@@ -11,17 +11,10 @@ module.exports = {
 
             User.find({ userName: userToCheck.userName }).exec(function (err, body) {
                 console.log("Username found, checking if password matches...");
-                console.log("Body ");
-                console.log(body);
-
-
-                console.log("user to check")
-                console.log(userToCheck);
-
                 body.forEach(element => {
                     if (element.password == userToCheck.password) {
                         //OK !
-                        console.log("User credentials have been successfully checked");
+                        console.log("User credentials have been successfully checked !");
                         resolve(body);
                     }
                 });

@@ -4,14 +4,15 @@ var digitizedCardsManagement = require('./digitizedCards_management')
 
 router.get('/', function (req, res) {
     res.status(503);
-    res.send("Not implemented yet : GET DIGITIZED CARDS LIST");
+    res.send("Not implemented yet : GET on DIGITIZED CARDS URL");
 })
 
 router.post('/', function (req, res) {
     var content = req.body;
+    console.log("About to create a new digitized card...");
     digitizedCardsManagement.createDigitizedCard(content).then((result) => {
         res.status(201);
-        res.send("Digitized card successfully created");
+        res.send(result);
     }).catch((err) => {
         res.status(412);
         res.send("Error while creating digitized card");

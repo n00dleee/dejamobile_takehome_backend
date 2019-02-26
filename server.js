@@ -3,10 +3,16 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 
+
 //models
 var User = require('./server/models/user_model');
 var digitizedCard = require('./server/models/digitizedCard_model');
 var card = require('./server/models/card_model');
+
+//jwt related
+const jwt = require('jsonwebtoken');
+const exjwt = require('express-jwt');
+var LoginManagement = require('./server/login/login_management')
 
 //mongo related
 var mongoClient = require('mongodb').MongoClient;
@@ -21,7 +27,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true });
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+//for jwt
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -30,8 +36,8 @@ var router = express.Router();              // get an instance of the express Ro
 var usersRoutes = require('./server/users/users_routes');
 var digitizedCardsRoutes = require('./server/digitizedCards/digitizedCards_routes');
 var loginRoutes = require('./server/login/login_routes');
-app.use('/users', usersRoutes);
-app.use('/digitizedCards', digitizedCardsRoutes);
+app.use('/users', LoginManagement.checkToken, usersRoutes);
+app.use('/digitizedCards', LoginManagement.checkToken, digitizedCardsRoutes);
 app.use('/login', loginRoutes);
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)

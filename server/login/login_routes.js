@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var loginManagement = require('./login_management');
+const jwt = require('jsonwebtoken');
+const exjwt = require('express-jwt');
+const config = require('./../../config')
+
 
 router.post('/', function (req, res) {
     console.log("HELLOOOOOOOOOOOO");
@@ -8,14 +12,22 @@ router.post('/', function (req, res) {
 
     console.log("A user is trying to log in");
 
-    loginManagement.checkUserCredentials(content).then((body, err) => {
+    loginManagement.checkUserCredentials(content).then((result) => {
         console.log("Login successfull !");
-        res.status(200);
-        res.send("Authorized user")
+        let token = jwt.sign({ username: result.username }, config.secret, { expiresIn: "240" }); // Sigining the token, expires in 4 min
+        console.log("Token generated ! ");
+        res.status(200).json({
+            sucess: true,
+            err: null,
+            token
+        });
+
     }).catch((err) => {
-        console.log("Erro while trying to log in");
-        res.status(401);
-        res.send("Unauthorized user")
+        res.status(401).json({
+            sucess: false,
+            token: null,
+            err: "Username or password is incorrect"
+        });
     });
 });
 

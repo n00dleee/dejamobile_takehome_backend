@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
 var request = require("request");
 var User = mongoose.model("User");
-var Config = require('./../../config')
+const jwt = require('jsonwebtoken');
+var Config = require('./../../config');
 
 module.exports = {
     checkUserCredentials: function (user) {
@@ -25,19 +26,32 @@ module.exports = {
         });
     },
     checkToken: function (req, res, next) {
+        console.log("Headers to be checked : ");
+        console.log(req.headers);
+        var token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
+            
         if (token) {
-            var token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
+            console.log("Token to check : ");
+            console.log(token);
+            
             if (token.startsWith('Bearer ')) {
                 // Remove 'Bearer' from string
                 token = token.slice(7, token.length);
+                console.log("Sliced token ");
+                console.log(token);
             }
-            jwt.verify(token, config.secret, (err, decoded) => {
+
+            jwt.verify(token, Config.secret, (err, decoded) => {
                 if (err) {
+                    console.log("Token is not valid :(");
+                    console.log("Error : ");
+                    console.log(err);
                     return res.json({
                         success: false,
                         message: 'Token is not valid'
                     });
                 } else {
+                    console.log("Token is valid :)");
                     req.decoded = decoded;
                     next();
                 }

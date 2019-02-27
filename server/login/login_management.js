@@ -29,11 +29,11 @@ module.exports = {
         console.log("Headers to be checked : ");
         console.log(req.headers);
         var token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
-            
+
         if (token) {
             console.log("Token to check : ");
             console.log(token);
-            
+
             if (token.startsWith('Bearer ')) {
                 // Remove 'Bearer' from string
                 token = token.slice(7, token.length);
@@ -44,11 +44,10 @@ module.exports = {
             jwt.verify(token, Config.secret, (err, decoded) => {
                 if (err) {
                     console.log("Token is not valid :(");
-                    console.log("Error : ");
                     console.log(err);
-                    return res.json({
+                    return res.status(401).json({
                         success: false,
-                        message: 'Token is not valid'
+                        message: err.message
                     });
                 } else {
                     console.log("Token is valid :)");

@@ -11,10 +11,14 @@ router.post('/', function (req, res) {
     console.log("A user is trying to log in");
     loginManagement.checkUserCredentials(content).then((result) => {
         console.log("Login successfull !");
-        let token = jwt.sign({ username: result.username }, config.secret, { expiresIn: "1h" }); // Sigining the token, expires in 4 min
+
+        //jwt libs seems to have problems :
+        //1 hours shift between system time and token time
+        //expiresIn: "3600" should provide a 1 hour lifespan for the token. It does not... If using a unit specifier, like "1h" it works
+        let token = jwt.sign({ username: result.username }, config.secret, { expiresIn: "2h" });
         console.log("Token generated !");
         res.status(200).json({
-            sucess: true,
+            success: true,
             err: null,
             token
         });

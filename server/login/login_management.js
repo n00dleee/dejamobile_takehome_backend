@@ -28,7 +28,7 @@ module.exports = {
     checkToken: function (req, res, next) {
         console.log("Headers to be checked : ");
         console.log(req.headers);
-        var token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
+        var token = req.headers['authorization']; // Express headers are auto converted to lowercase
 
         if (token) {
             console.log("Token to check : ");

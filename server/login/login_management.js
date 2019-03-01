@@ -9,7 +9,7 @@ module.exports = {
         console.log("Checking user's credentials ...");
         return new Promise(function (resolve, reject) {
             var userToCheck = new User(user);
-            console.log("Trying to user's credentials in database...");
+            console.log("Trying to find user's credentials in database...");
 
             User.find({ userName: userToCheck.userName }).exec(function (err, body) {
 
@@ -26,19 +26,13 @@ module.exports = {
         });
     },
     checkToken: function (req, res, next) {
-        console.log("Headers to be checked : ");
-        console.log(req.headers);
         var token = req.headers['authorization']; // Express headers are auto converted to lowercase
 
         if (token) {
-            console.log("Token to check : ");
-            console.log(token);
 
             if (token.startsWith('Bearer ')) {
                 // Remove 'Bearer' from string
                 token = token.slice(7, token.length);
-                console.log("Sliced token ");
-                console.log(token);
             }
 
             jwt.verify(token, Config.secret, (err, decoded) => {
@@ -50,7 +44,6 @@ module.exports = {
                         message: err.message
                     });
                 } else {
-                    console.log("Token is valid :)");
                     req.decoded = decoded;
                     next();
                 }

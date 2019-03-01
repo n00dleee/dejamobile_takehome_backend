@@ -39,7 +39,14 @@ module.exports = {
     },
     checkUserCreationRequest: function (user) {
         return new Promise(function (resolve, reject) {
-            //TODO
+            if (user != undefined) {
+                if (user.userName.length > 0 && user.password.length > 7) {
+                    resolve();
+                }
+                else
+                    reject("Username must be at least 1 char and password at least 8 char");
+            }
+            reject("User undifined");
         })
     }
 }

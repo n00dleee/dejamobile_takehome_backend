@@ -27,11 +27,16 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true });
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-//for jwt
 
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
+
+app.get('/', function (req, res) {
+    res.status(200).json({ message: 'Welcome ! please use /users to create a user and /login to log in' });
+});
+
+
 //our api routes
 var usersRoutes = require('./server/users/users_routes');
 var digitizedCardsRoutes = require('./server/digitizedCards/digitizedCards_routes');
@@ -40,10 +45,6 @@ app.use('/users', usersRoutes);
 app.use('/digitizedCards', LoginManagement.checkToken, digitizedCardsRoutes);
 app.use('/login', loginRoutes);
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function (req, res) {
-    res.json({ message: 'Welcome to dejamobile API !' });
-});
 
 // SERVER RELATED
 // =============================================================================

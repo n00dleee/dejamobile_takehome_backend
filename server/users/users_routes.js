@@ -9,7 +9,7 @@ router.get('/', loginManager.checkToken, function (req, res) {
 })
 
 router.post('/', function (req, res) {
-    var content = req;
+    var content = req.body;
 
     userManagement.checkUserCreationRequest(content).then((response) => {
         userManagement.createUser(content).then((result) => {
